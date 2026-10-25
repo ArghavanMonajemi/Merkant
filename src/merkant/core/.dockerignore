@@ -1,0 +1,30 @@
+# Version control
+.git
+.gitignore
+
+# Python environments and caches
+.venv
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.mypy_cache
+.ruff_cache
+
+# Secrets and env files
+**/.env
+**/.env.*
+
+# Local data and generated files
+**/db.sqlite3
+**/media
+**/staticfiles
+
+# IDE and OS files
+.idea
+.vscode
+.DS_Store
+
+# Docker files (not needed inside the image)
+Dockerfile
+docker-compose*.yml
+.dockerignore
