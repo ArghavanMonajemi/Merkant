@@ -1,0 +1,20 @@
+[project]
+name = "merkant"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Arghavan Monajemi", email = "monajemi.am@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "django<5.3",
+    "python-decouple>=3.8",
+]
+
+[project.scripts]
+merkant = "merkant:main"
+
+[build-system]
+requires = ["uv_build>=0.13.5,<0.14.0"]
+build-backend = "uv_build"
