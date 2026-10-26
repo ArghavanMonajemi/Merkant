@@ -10,7 +10,9 @@ services:
     env_file:
       - .env
     volumes:
-    - ./src/merkant:/app
+      - ./src/merkant:/app
+    depends_on:
+      - redis
 
   smtp4dev:
     image: rnwood/smtp4dev:v3
@@ -25,6 +27,13 @@ services:
     environment:
       - ServerOptions__Urls=http://*:80
       - ServerOptions__HostName=smtp4dev
+
+  redis:
+    image: redis
+    command: redis-server --save 60 1 --loglevel warning
+    restart: always
+    ports:
+      - "6379:6379"
 
 volumes:
   smtp4dev-data:
