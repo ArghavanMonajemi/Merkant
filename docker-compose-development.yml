@@ -12,7 +12,8 @@ services:
     volumes:
       - ./src/merkant:/app
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
 
   smtp4dev:
     image: rnwood/smtp4dev:v3
@@ -29,11 +30,48 @@ services:
       - ServerOptions__HostName=smtp4dev
 
   redis:
-    image: redis
+    image: redis:7-alpine
     command: redis-server --save 60 1 --loglevel warning
-    restart: always
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
     ports:
       - "6379:6379"
 
+  celery_worker:
+    build:
+      context: .
+      target: dev
+    command: celery -A core worker --loglevel=info
+    env_file:
+      - .env.stage
+    volumes:
+      - ./src/merkant:/app
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  flower:
+    build:
+      context: .
+      target: dev
+    command: celery -A core flower --port=5555
+    env_file:
+      - .env
+    volumes:
+      - ./src/merkant:/app
+    ports:
+      - "127.0.0.1:5555:5555"
+    depends_on:
+      redis:
+        condition: service_healthy
+
 volumes:
   smtp4dev-data:
+  redis_data:

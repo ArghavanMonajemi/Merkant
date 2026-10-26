@@ -8,10 +8,12 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
+    "celery[redis]>=5.6.3",
     "django<5.3",
     "djangorestframework>=3.18.3",
     "djangorestframework-simplejwt>=5.5.1",
     "drf-yasg>=1.21.18",
+    "flower>=2.2.0",
     "gunicorn>=26.2.0",
     "psycopg[binary]>=3.3.6",
     "python-decouple>=3.8",
