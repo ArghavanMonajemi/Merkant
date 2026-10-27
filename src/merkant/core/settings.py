@@ -75,12 +75,16 @@ TEMPLATES = [
 WSGI_APPLICATION = "core.wsgi.application"
 
 
+
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 ENVIRONMENT = config("ENVIRONMENT", default="development")
 if ENVIRONMENT not in {"development", "staging", "production"}:
     raise ValueError(f"Invalid ENVIRONMENT: {ENVIRONMENT}")
+
+if ENVIRONMENT == "production" and DEBUG:
+    raise ValueError("DEBUG must be False in production")
 
 if ENVIRONMENT=="development":
     DATABASES = {

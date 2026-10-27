@@ -28,3 +28,6 @@
 Dockerfile
 docker-compose*.yml
 .dockerignore
+
+# Document
+docs
