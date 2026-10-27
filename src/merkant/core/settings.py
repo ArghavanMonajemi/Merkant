@@ -172,6 +172,7 @@ REST_FRAMEWORK = {
         "user": "1000/hour",
     },
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "EXCEPTION_HANDLER": "core.api.exceptions.custom_exception_handler",
 }
 
 SPECTACULAR_SETTINGS = {

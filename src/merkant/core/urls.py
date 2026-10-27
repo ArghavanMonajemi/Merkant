@@ -38,3 +38,6 @@ if settings.DEBUG:
     if not settings.TESTING:
         from debug_toolbar.toolbar import debug_toolbar_urls
         urlpatterns += debug_toolbar_urls()
+
+handler404 = "core.api.exceptions.not_found"
+handler500 = "core.api.exceptions.server_error"
